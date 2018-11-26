@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+History:
+    {% for tran in trans %}
+        <p>{{ tran.datetime}}: {{ tran.isbuy }} | {{ tran.symbol }} | {{ tran.price }} | {{ tran.qty }}</p>
+    {% endfor %}
+{% endblock %}

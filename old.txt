@@ -1,0 +1,27 @@
+
+     -------------------------
+    if stocknames != []:
+        
+        
+       for name in stocknames:
+          result = db.execute("SELECT owned FROM holdings WHERE user IS :curuser AND stock IS :stock",curuser=user[0]["username"], stock=name['stock'])
+            if result[0]['owned'] != 0:
+                stockinfo = {}
+                stockdata = lookup(name['stock'])
+                
+                stockinfo['symbol'] = stockdata['symbol']
+                stockinfo['price'] = stockdata['price']
+                stockinfo['owned'] = result[0]['owned']
+                stockinfo['value'] = stockdata['price'] * result[0]['owned']
+                
+                stocks.append(stockinfo)
+                stockvalue += stockinfo['value']
+    
+    cashonhand = db.execute("SELECT cash FROM users WHERE id IS :iden",iden=session["user_id"])
+    totalval = cashonhand[0]['cash'] + stockvalue
+        
+        
+        
+        
+        
+        <!-- {{ url_for('submitscore') }} -->

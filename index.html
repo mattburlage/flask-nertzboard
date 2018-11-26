@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    Cash: {{ cash }}<br>
+    Total Value: {{ totalvalue }}<br>
+    {% for stock in stocks %}
+        <p>{{ stock.symbol }}: {{ stock.owned}} x {{ stock.price }} = {{ stock.value }}</p>
+    {% endfor %}
+{% endblock %}

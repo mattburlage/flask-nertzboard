@@ -1,0 +1,15 @@
+- Automate rounds: 
+    - Close round once all players have submitted scores
+    - Add rounds to top row on index.html
+    - Remove manual rounds entry
+    - 
+
+- Multiple Rooms
+    - Room selection page
+        - New room option
+        - Join room by name option
+        - List of games?
+            - Maybe new room has public/private option
+
+- Misc
+    - Replace isnewgame with session data so all users get popup once

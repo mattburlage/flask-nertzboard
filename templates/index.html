@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Gameboard
+{% endblock %}
+
+{% block main %}
+    {% if newgame %}
+        <div class="alert alert-success alert-dismissible" role="alert" id="newgamesuccess">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+                New game created successfully. Have fun!</a>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-4">Player: {{ user }}</div>
+        <div class="col-md-4">Room: {{ room }}</div>
+        <div class="col-md-4">Game ID: {{ curgame }}</div>
+    </div>
+    <br><a href="/">Refresh</a><br><br><br>
+    <center>
+    <table style="width:60%" class="table-bordered text-center">
+        <tr>
+            <th item-width="70%">Player</th>
+            <th item-width="10%">Rounds</th> 
+            <th item-width="20%">Score</th>
+        </tr>
+    {% for player in players %}
+        <tr>
+            <td>{{ player.name }}</td>
+            <td>{{ player.rounds }}</td> 
+            <td>{{ player.score }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </center>
+    <br><br>{{ message }}<br><br>
+    <form autocomplete="off" action="{{ url_for('submitscore') }}" method="POST"> 
+        <fieldset>
+            <div class="form-group">
+                <input autofocus class="form-control" name="Round" placeholder="Round" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" name="nertzcards" placeholder="Nertz Cards (left over)" type="text"/>
+            </div>
+            <div class="form-group">
+                <input autofocus class="form-control" name="pointscards" placeholder="Points Cards (in the center)" type="text"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Submit Score</button>
+            </div>
+        </fieldset>
+    </form>
+    
+
+{% endblock %}
