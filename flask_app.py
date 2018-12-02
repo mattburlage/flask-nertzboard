@@ -36,7 +36,6 @@ db = SQL("sqlite:///nertz.db")
 def index():
     # get current username and get that user's stock holdings
     user = db.execute("SELECT username FROM users WHERE id IS :iden",iden=session["user_id"])
-    displayname = db.execute("SELECT username FROM users WHERE id IS :iden",iden=session["user_id"])
     curgame = db.execute("SELECT curgame FROM rooms WHERE room IS :room",room=room)
     players = db.execute("SELECT username FROM users WHERE room IS :room",room=room)
     returndata = []
