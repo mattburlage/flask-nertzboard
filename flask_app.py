@@ -65,13 +65,9 @@ def index():
 
             returndata.append(playerinfo)
 
-    # sort output by high score
-    # sort_on = "score"
-    # decorated = [(dict_[sort_on], dict_) for dict_ in returndata]
-    # decorated.sort(reverse=1)
-    # result = [dict_ for (key, dict_) in decorated]
+    newlist = sorted(returndata, key=itemgetter('score'), reverse=True) 
 
-    return render_template("index.html",user=user[0]["username"],room=room,curgame=curgame[0]["curgame"],players=returndata,newgame=newgameloc)
+    return render_template("index.html",user=user[0]["username"],room=room,curgame=curgame[0]["curgame"],players=newlist,newgame=newgameloc)
 
 
 @app.route("/newgame", methods=["GET", "POST"])
