@@ -28,8 +28,11 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# configure CS50 Library to use SQLite database
-db = SQL("sqlite:///nertz.db")
+# configure SQLite database depending on where we're running from
+try:
+    db = SQL("sqlite:////home/mattburlage/nertz/nertz.db")
+except:
+    db = SQL("sqlite:///nertz.db")
 
 @app.route("/")
 @login_required
