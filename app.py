@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+from operator import itemgetter
 
 import time
 
@@ -28,8 +29,11 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# configure CS50 Library to use SQLite database
-db = SQL("sqlite:///nertz.db")
+# configure SQLite database depending on where we're running from
+try:
+    db = SQL("sqlite:////home/mattburlage/nertzboard/nertz.db")
+except:
+    db = SQL("sqlite:///nertz.db")
 
 @app.route("/")
 @login_required
@@ -63,13 +67,9 @@ def index():
         
             returndata.append(playerinfo)
     
-    # sort output by high score
-    # sort_on = "score"
-    # decorated = [(dict_[sort_on], dict_) for dict_ in returndata]
-    # decorated.sort(reverse=1)
-    # result = [dict_ for (key, dict_) in decorated]
+        newlist = sorted(returndata, key=itemgetter('score'), reverse=True) 
 
-    return render_template("index.html",user=user[0]["username"],room=room,curgame=curgame[0]["curgame"],players=returndata,newgame=newgameloc)
+    return render_template("index.html",user=user[0]["username"],room=room,curgame=curgame[0]["curgame"],players=newlist,newgame=newgameloc)
 
 
 @app.route("/newgame", methods=["GET", "POST"])
