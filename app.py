@@ -31,7 +31,7 @@ Session(app)
 
 # configure SQLite database depending on where we're running from
 try:
-    db = SQL("sqlite:////home/mattburlage/nertzboard/nertz.db")
+    db = SQL("sqlite:////home/mattburlage/nertz/nertz.db")
 except:
     db = SQL("sqlite:///nertz.db")
 
@@ -40,8 +40,6 @@ except:
 def index():
     # get current username and get that user's stock holdings
     user = db.execute("SELECT username FROM users WHERE id IS :iden",iden=session["user_id"])
-    displayname = db.execute("SELECT username FROM users WHERE id IS :iden",iden=session["user_id"])
-    curgame = db.execute("SELECT curgame FROM rooms WHERE room IS :room",room=room)
     players = db.execute("SELECT username FROM users WHERE room IS :room",room=room)
     returndata = []
     newgameloc = False
