@@ -12,7 +12,7 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Frijole" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Mouse+Memoirs" rel="stylesheet">
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
 
         <div class="container">
 
-            <nav class="navbar navbar-default" style="background-color:#F4B350">
+            <nav class="navbar navbar-default" style="background-color:#F4B350; color: white">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
@@ -34,15 +34,13 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" style="font-family: 'Frijole', cursive;" href="{{ url_for('index') }}">NertzBoard</a>
+                        <a class="navbar-brand" style="font-family: 'Mouse Memoirs', cursive;" href="{{ url_for('index') }}">NertzBoard</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if session.user_id %}
                             <ul class="nav navbar-nav">
                                 <li><a href="{{ url_for('index') }}">Current Game</a></li>
                                 <li><a href="#" onclick="$('.newgameconf').show()">New Game</a></li>
-                                <!-- <li><a href="#">Rules</a></li>
-                                <li><a href="#">Rules</a></li> -->
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
