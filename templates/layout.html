@@ -25,7 +25,7 @@
 
         <div class="container">
 
-            <nav class="navbar navbar-default" style="background-color:#F4B350; color: white">
+            <nav class="navbar navbar-inverse" style="background-color:#F4B350; color: white">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
@@ -34,21 +34,21 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" style="font-family: 'Mouse Memoirs', cursive;" href="{{ url_for('index') }}">NertzBoard</a>
+                        <a class="navbar-brand" style="font-family: 'Mouse Memoirs', cursive; font-size: 22pt; color: white" href="{{ url_for('index') }}">NertzBoard</a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if session.user_id %}
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ url_for('index') }}">Current Game</a></li>
-                                <li><a href="#" onclick="$('.newgameconf').show()">New Game</a></li>
+                                <li><a style="color: white" href="{{ url_for('index') }}">Current Game</a></li>
+                                <li><a style="color: white" href="#" onclick="$('.newgameconf').show()">New Game</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                                <li><a style="color: white" href="{{ url_for('logout') }}">Log Out</a></li>
                             </ul>
                         {% else %}
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ url_for('register') }}">Register</a></li>
-                                <li><a href="{{ url_for('login') }}">Log In</a></li>
+                                <li><a style="color: white" href="{{ url_for('register') }}">Register</a></li>
+                                <li><a style="color: white" href="{{ url_for('login') }}">Log In</a></li>
                             </ul>
                         {% endif %}
                     </div>
