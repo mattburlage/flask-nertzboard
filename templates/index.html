@@ -29,7 +29,7 @@
         </tr>
     {% for player in players %}
         <tr>
-            <td>{{ player.name }}<i class="fas fa-check"></i></td>
+            <td>{{ player.name }} {% if player.winner %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}</td>
             <td>{{ player.rounds }}</td> 
             <td>{{ player.score }}</td>
         </tr>
