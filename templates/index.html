@@ -4,6 +4,9 @@
     Gameboard
 {% endblock %}
 
+{% block head %}
+{% endblock %}
+
 {% block main %}
     {% if newgame %}
         <div class="alert alert-success alert-dismissible" role="alert" id="newgamesuccess">
@@ -16,7 +19,7 @@
         <div class="col-md-4">Room: {{ room }}</div>
         <div class="col-md-4">Game ID: {{ curgame }}</div>
     </div>
-    <br><a href="/">Refresh</a><br><br><br>
+    <br><a href="{{ url_for('index') }}">Refresh</a><br><br><br>
     <center>
     <table style="width:60%" class="table-bordered text-center">
         <tr>
@@ -34,16 +37,17 @@
     </table>
     </center>
     <br><br>{{ message }}<br><br>
-    <form autocomplete="off" action="{{ url_for('submitscore') }}" method="POST"> 
+    <form autocomplete="off" action="{{ url_for('submitscore') }}" name="scoresubmit" method="POST"> 
         <fieldset>
+            
             <div class="form-group">
-                <input autofocus class="form-control" name="Round" placeholder="Round" type="text"/>
+                <h4>Round {{ curround + 1 }}</h4>
             </div>
             <div class="form-group">
-                <input autofocus class="form-control" name="nertzcards" placeholder="Nertz Cards (left over)" type="text"/>
+                Nertz Cards: <input autofocus class="form-control" name="nertzcards"  placeholder="Nertz" type="number" min="0" max="13" required/>
             </div>
             <div class="form-group">
-                <input autofocus class="form-control" name="pointscards" placeholder="Points Cards (in the center)" type="text"/>
+                Points Cards: <input  class="form-control" name="pointscards" placeholder="Points" type="number" min="0" max="52" required/>
             </div>
             <div class="form-group">
                 <button class="btn btn-default" type="submit">Submit Score</button>
