@@ -98,7 +98,7 @@ def submitscore():
         pc = int(request.form.get("pointscards"))
         nc = int(request.form.get("nertzcards"))
 
-        if pc < 0 or pc > 52 or nc < 0 or pc > 13:
+        if pc < 0 or pc > 52 or nc < 0 or nc > 13:
             return apology("Invalid numbers.")
 
         pointswing = (pc) - (nc * 2)
