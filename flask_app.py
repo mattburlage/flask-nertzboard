@@ -10,7 +10,7 @@ import time
 from helpers import *
 
 room = "ivins"
-c-winscore = 100
+cwinscore = 100
 
 # configure application
 app = Flask(__name__)
@@ -65,7 +65,7 @@ def index():
             rounddata = db.execute("SELECT count(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame,user=player["username"])
             playerinfo["rounds"] = rounddata[0]["count(pointswing)"]
 
-            if playerinfo["score"] >= c-winscore:
+            if playerinfo["score"] >= cwinscore:
                 playerinfo["winner"] = True
             else:
                 playerinfo["winner"] = False
