@@ -97,6 +97,10 @@ def submitscore():
 
         pc = int(request.form.get("pointscards"))
         nc = int(request.form.get("nertzcards"))
+
+        if pc < 0 or pc > 52 or nc < 0 or pc > 13:
+            return apology("Invalid numbers.")
+
         pointswing = (pc) - (nc * 2)
 
         db.execute("INSERT INTO hands (datetime, room, game, round, user, nertzcards, pointscards, pointswing) VALUES (:datetime, :room, :game, :curround, :user, :ncards, :pcards, :pswing)",datetime='soontm',room=room,game=curgame[0]["curgame"], curround=0,user=user[0]['username'],ncards=request.form.get("nertzcards"),pcards=request.form.get("pointscards"),pswing=pointswing)
