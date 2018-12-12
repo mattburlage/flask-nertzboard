@@ -1,4 +1,5 @@
-nertz.db
+*.db
 __pycache__/flask_app.cpython-37.pyc
 __pycache__/helpers.cpython-37.pyc
 *.pyc
+__pycache__/*

@@ -39,36 +39,41 @@ except:
 @login_required
 def index():
     # get current username and get that user's stock holdings
-    user = db.execute("SELECT username FROM users WHERE id IS :iden",iden=session["user_id"])
-    curgame = db.execute("SELECT curgame FROM rooms WHERE room IS :room",room=room)
+    user = db.execute("SELECT username FROM users WHERE id IS :iden",iden=session["user_id"])[0]["username"]
+    curgame = db.execute("SELECT curgame FROM rooms WHERE room IS :room",room=room)[0]["curgame"]
     players = db.execute("SELECT username FROM users WHERE room IS :room",room=room)
     returndata = []
     newgameloc = False
 
     # Check if new game
-    newgamechk = db.execute("SELECT isnewgame FROM games WHERE game is :curgame",curgame=curgame[0]["curgame"])
+    newgamechk = db.execute("SELECT isnewgame FROM games WHERE game is :curgame",curgame=curgame)
     if newgamechk[0]["isnewgame"] == 1:
-        db.execute("UPDATE games SET isnewgame = 0 WHERE game IS :curgame",curgame=curgame[0]["curgame"])
+        db.execute("UPDATE games SET isnewgame = 0 WHERE game IS :curgame",curgame=curgame)
         newgameloc = True
 
     for player in players:
 
-        gamedata = db.execute("SELECT * FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame[0]["curgame"],user=player["username"])
-        rounddata = db.execute("SELECT count(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame[0]["curgame"],user=player["username"])
+        gamedata = db.execute("SELECT * FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame,user=player["username"])
+        rounddata = db.execute("SELECT count(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame,user=player["username"])
         if gamedata != None and rounddata[0]["count(pointswing)"] != 0:
             playerinfo = {}
 
             playerinfo["name"] = player["username"]
-            scoredata = db.execute("SELECT sum(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame[0]["curgame"],user=player["username"])
+            scoredata = db.execute("SELECT sum(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame,user=player["username"])
             playerinfo["score"] = scoredata[0]["sum(pointswing)"]
-            rounddata = db.execute("SELECT count(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame[0]["curgame"],user=player["username"])
+            rounddata = db.execute("SELECT count(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame,user=player["username"])
             playerinfo["rounds"] = rounddata[0]["count(pointswing)"]
 
             returndata.append(playerinfo)
 
     newlist = sorted(returndata, key=itemgetter('score'), reverse=True) 
 
-    return render_template("index.html",user=user[0]["username"],room=room,curgame=curgame[0]["curgame"],players=newlist,newgame=newgameloc)
+    curround = db.execute("SELECT count(pointswing) FROM hands WHERE user IS :user AND game IS :curgame",curgame=curgame,user=user)[0]["count(pointswing)"]
+
+    
+    print(int(curround))
+
+    return render_template("index.html",user=user,room=room,curgame=curgame,players=newlist,newgame=newgameloc,curround=curround)
 
 
 @app.route("/newgame", methods=["GET", "POST"])
